@@ -1,0 +1,55 @@
+/*
+0!='0'
+*/
+
+/*
+acd
+bca
+后移b串最短串是6
+bca
+acd
+最短串是5
+*/
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<algorithm>
+using namespace std;
+#define scnaf scanf
+#define ll long long
+const int N=5e3+5;
+char a[N],b[N];
+int m,n;
+int slove()
+{
+    int i,j,k=m+n;//如果从头到尾都不能匹配，将返回两串长度之和
+    for(i=0;i<m;i++)//从a串第一个字符开始，依次比较
+    {
+        int flag=1;
+        for(j=0;j<n&&i+j<m;j++)//如果此时a串和b串相同就继续下去，不同则将b串后移
+        {
+            if(a[i+j]=='?'||b[j]=='?'||a[i+j]==b[j])
+                continue;
+            else
+            {
+                flag=0;
+                break;
+            }
+        }
+        if(flag)//如果是正常退出则说明找到"最短串"//引号是因为还不能确定
+            k=min(k,max(i+n,m));
+    }
+    return k;
+}
+int main()
+{
+    scnaf("%s\n%s",a,b);
+    m=strlen(a);
+    n=strlen(b);
+    int ans=slove();
+    swap(a,b);
+    swap(m,n);
+    ans=min(ans,slove());
+    printf("%d\n",ans);
+    return 0;
+}

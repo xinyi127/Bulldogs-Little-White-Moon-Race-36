@@ -1,0 +1,40 @@
+/*
+0!='0'
+*/
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<algorithm>
+using namespace std;
+#define scnaf scanf
+#define ll long long
+const int N=1e3+5;
+char s[N][N]={0};
+int ans=0,a[]={0,0,1,-1},b[]={1,-1,0,0},n,m,xx,yy;
+void bfs(int x,int y)
+{
+    for(int i=0;i<=3;i++)
+    {
+        xx=x+a[i];yy=y+b[i];
+        if(xx>=0&&yy>=0&&xx<=n+1&&yy<=m+1&&s[xx][yy]!='1')
+        {
+            if(s[xx][yy]=='0')
+                ans++;
+            s[xx][yy]='1';
+            bfs(xx,yy);
+        }
+    }
+}
+int main()
+{
+    int i,j,k;
+    scnaf("%d%d",&n,&m);
+    for(i=1;i<=n;i++)
+    {
+        getchar();
+        scanf("%s",&s[i][1]);
+    }
+    bfs(0,0);
+    printf("%d\n",ans);
+    return 0;
+}
